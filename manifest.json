@@ -1,0 +1,32 @@
+{
+  "manifest_version": 3,
+  "name": "Screenshot Maker",
+  "version": "1.0",
+  "description": "Allows the user to select an area of the screen for capturing a screenshot.",
+  "action": {
+    "default_icon": "icon.png"
+  },
+  "permissions": ["activeTab", "scripting", "storage", "tabs"],
+  "host_permissions": ["<all_urls>"],
+  "background": {
+    "service_worker": "background.js"
+  },
+
+  "web_accessible_resources": [
+    {
+      "resources": ["x-cursor.png", "tesseract/*.js", "ocr.html"],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
+    }
+  ],
+  "content_security_policy": {
+    "script-src": "'self' 'wasm-eval' 'unsafe-eval';",
+    "object-src": "'self';",
+    "extension_pages": "script-src 'self' 'wasm-unsafe-eval'"
+  }
+}
